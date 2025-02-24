@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TP 2 Vue</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <style>
+            img {
+                float: left;
+                margin-right: 1rem;
+                border-radius: 50%;
+            }
+            .personne {
+                clear: left;
+                padding: 1rem;
+                border-bottom: 1px solid #ddd;
+                display: flex;
+                align-items: center;
+            }
+            .details {
+                flex: 1;
+            }
+            input[type="checkbox"],
+            select {
+                margin-right: 1rem;
+            }
+            .misEnForme {
+                background: #e0ffff;
+                font-family: Georgia, serif;
+                font-size: 1.2rem;
+                margin: 1rem;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <fieldset>
+                <legend>Filtre sur le nom</legend>
+                <input type="text" v-model="filtreNom" />
+            </fieldset>
+            <fieldset>
+                <legend>Options</legend>
+                Homme <input type="checkbox" v-model="homme" /> Femme
+                <input type="checkbox" v-model="femme" /> Téléphone
+                <input type="checkbox" v-model="tel" />
+                Photo
+                <select v-model="taille">
+                    <option value="1">Petit</option>
+                    <option value="2" selected>Moyen</option>
+                    <option value="3">Grand</option>
+                </select>
+                Mise en forme
+                <input type="checkbox" v-model="misEnFormeCheck" /> Afficher
+                contacts <input type="checkbox" v-model="showContact" />
+            </fieldset>
+
+            <div
+                v-for="p in filteredPersonnes"
+                :key="p.email"
+                class="personne"
+                :class="{ misEnForme: misEnFormeCheck }"
+            >
+                <img :src="p.picture[getSize]" alt="Photo" />
+                <div class="details">
+                    <strong
+                        >{{ p.name.title }} {{ p.name.first }} {{ p.name.last
+                        }}</strong
+                    ><br />
+                    <div>{{ p.location.country }}</div>
+                    <div v-show="tel && showContact">{{ p.phone }}</div>
+                    <div v-show="showContact">{{ p.email }}</div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        misEnFormeCheck: false,
+                        showContact: false,
+                        homme: true,
+                        femme: true,
+                        tel: true,
+                        taille: 2,
+                        filtreNom: "",
+                        personnes: [],
+                    };
+                },
+                computed: {
+                    filteredPersonnes() {
+                        return this.personnes.filter((p) => {
+                            return (
+                                ((this.homme && p.gender === "male") ||
+                                    (this.femme && p.gender === "female")) &&
+                                (this.filtreNom === "" ||
+                                    p.name.last
+                                        .toLowerCase()
+                                        .includes(
+                                            this.filtreNom.toLowerCase()
+                                        ) ||
+                                    p.name.first
+                                        .toLowerCase()
+                                        .includes(this.filtreNom.toLowerCase()))
+                            );
+                        });
+                    },
+                    getSize() {
+                        return this.taille == 1
+                            ? "thumbnail"
+                            : this.taille == 2
+                            ? "medium"
+                            : "large";
+                    },
+                },
+                mounted() {
+                    fetch("personnes.json")
+                        .then((response) => response.json())
+                        .then((data) => {
+                            this.personnes = data;
+                        })
+                        .catch((error) =>
+                            console.error(
+                                "Erreur de chargement du fichier JSON :",
+                                error
+                            )
+                        );
+                },
+            });
+
+            app.mount("#app");
+        </script>
+    </body>
+</html>
