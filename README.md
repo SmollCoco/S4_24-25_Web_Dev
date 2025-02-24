@@ -6,6 +6,7 @@ Ce dépôt contient les projets et exercices réalisés dans le cadre du cours d
 
 - **Mini_Projet_1**
 - **Mini_Projet_2**
+- - **TP_1_JS**
 - **TP_1_Vue**
 
 ## Installation
