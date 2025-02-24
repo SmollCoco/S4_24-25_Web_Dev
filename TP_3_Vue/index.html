@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #0f2d37;
+                margin: 0;
+                padding: 20px;
+                color: #ffffff;
+            }
+
+            #app {
+                max-width: 800px;
+                margin: auto;
+                background: #1a4a5a;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            fieldset {
+                border: 2px solid #3a8da8;
+                border-radius: 8px;
+                padding: 20px;
+                background-color: #2a6d7f;
+                margin-bottom: 25px;
+            }
+
+            legend {
+                font-weight: 600;
+                padding: 0 15px;
+                color: #a3d6e8;
+                font-size: 1.1em;
+            }
+
+            label {
+                margin-right: 25px;
+                color: #d1edf7;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 8px;
+                accent-color: #3a8da8;
+                transform: scale(1.2);
+            }
+
+            .task {
+                background: linear-gradient(145deg, #2a6d7f, #1a4a5a);
+                border: 2px solid #3a8da8;
+                border-radius: 8px;
+                padding: 18px;
+                margin-bottom: 15px;
+                transition: all 0.3s ease;
+                color: #e6f7ff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .task:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(58, 141, 168, 0.3);
+                border-color: #4db4d3;
+            }
+
+            .task.completed {
+                background: #2a6d7f;
+                border-color: #4db4d3;
+                opacity: 0.8;
+                position: relative;
+            }
+
+            .task.completed::after {
+                content: "✓";
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: orange;
+                font-size: 1.5em;
+            }
+
+            .checkout {
+                margin-top: 15px;
+                text-align: right;
+            }
+
+            .tasks-info {
+                text-align: center;
+                font-weight: 600;
+                margin-top: 25px;
+                padding: 15px;
+                background-color: #1a4a5a;
+                border-radius: 6px;
+                color: #a3d6e8;
+            }
+
+            /* Custom scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #1a4a5a;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #3a8da8;
+                border-radius: 4px;
+            }
+        </style>
+        <title>TP 3 Vue</title>
+    </head>
+    <body>
+        <div id="app">
+            <fieldset>
+                <legend>Filtres</legend>
+                <label>
+                    À faire
+                    <input
+                        type="checkbox"
+                        name="filter"
+                        checked
+                        v-model="todo"
+                    />
+                </label>
+                <label>
+                    Terminée
+                    <input type="checkbox" name="filter" v-model="done" />
+                </label>
+            </fieldset>
+            <div id="tasks" v-for="t in tasksToShow" :key="t.id">
+                <div class="task" :class="{ completed: t.completed }">
+                    {{ t.id }} | {{ t.title }} | {{ t.description }}
+                    <div class="checkout" v-show="!t.completed">
+                        <label>
+                            Marquer comme terminée
+                            <input type="checkbox" v-model="t.completed" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="tasks-info">
+                Nombre de tâches: {{tasksToShow.length}}
+            </div>
+        </div>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        todo: true,
+                        done: false,
+                        tasks: [
+                            {
+                                id: 1,
+                                title: "Faire les courses",
+                                description: "Acheter des légumes et du lait.",
+                                completed: false,
+                            },
+                            {
+                                id: 2,
+                                title: "Faire du sport",
+                                description: "Courir pendant 30 minutes.",
+                                completed: true,
+                            },
+                            {
+                                id: 3,
+                                title: "Réviser pour l'examen",
+                                description: "Relire le chapitre 5 du manuel.",
+                                completed: false,
+                            },
+                            {
+                                id: 4,
+                                title: "Appeler maman",
+                                description:
+                                    "Discuter des nouvelles de la semaine.",
+                                completed: false,
+                            },
+                            {
+                                id: 5,
+                                title: "Faire le ménage",
+                                description:
+                                    "Passer l'aspirateur et nettoyer la cuisine.",
+                                completed: true,
+                            },
+                            {
+                                id: 6,
+                                title: "Lire un livre",
+                                description:
+                                    "Commencer le premier chapitre de 'Le Petit Prince'.",
+                                completed: false,
+                            },
+                            {
+                                id: 7,
+                                title: "Cuisiner le dîner",
+                                description: "Préparer du riz avec du poulet.",
+                                completed: true,
+                            },
+                            {
+                                id: 8,
+                                title: "Écrire un poème",
+                                description:
+                                    "Exprimer mes pensées de la journée en vers.",
+                                completed: false,
+                            },
+                            {
+                                id: 9,
+                                title: "Regarder un documentaire",
+                                description:
+                                    "Explorer un sujet historique intéressant.",
+                                completed: true,
+                            },
+                            {
+                                id: 10,
+                                title: "Organiser mon bureau",
+                                description:
+                                    "Ranger les papiers et trier les fournitures.",
+                                completed: false,
+                            },
+                        ],
+                    };
+                },
+                computed: {
+                    tasksToShow() {
+                        return this.tasks.filter((t) =>
+                            t.completed ? this.done : this.todo
+                        );
+                    },
+                },
+            });
+            app.mount("#app");
+        </script>
+    </body>
+</html>
