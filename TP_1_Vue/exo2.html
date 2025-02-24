@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Manipulation de vue - Exo 1</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f4f4f4;
+                margin: 50px;
+            }
+            #monapp {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: inline-block;
+            }
+            button {
+                font-size: 20px;
+                padding: 10px 20px;
+                margin: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            button:first-of-type {
+                background-color: #4caf50;
+                color: white;
+            }
+            button:last-of-type {
+                background-color: #f44336;
+                color: white;
+            }
+            button:hover {
+                opacity: 0.8;
+            }
+            p {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="monapp">
+            <button type="button" @click="increment()">++</button>
+            <p>{{ compteur }}</p>
+            <button type="button" @click="decrement()">--</button>
+        </div>
+        <script>
+            const appli = {
+                data() {
+                    return {
+                        compteur: 0,
+                    };
+                },
+                methods: {
+                    increment() {
+                        ++this.compteur;
+                    },
+                    decrement() {
+                        --this.compteur;
+                    },
+                },
+            };
+            Vue.createApp(appli).mount("#monapp");
+        </script>
+    </body>
+</html>

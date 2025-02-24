@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Manipulation de Vue</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                text-align: center;
+                margin: 50px;
+            }
+            #monapp {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: inline-block;
+                text-align: left;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            li {
+                margin-bottom: 10px;
+            }
+            label {
+                font-size: 16px;
+                margin-left: 5px;
+            }
+            input[type="radio"] {
+                margin-left: 15px;
+            }
+            p {
+                font-size: 18px;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 5px;
+                background: rgba(0, 0, 0, 0.05);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="monapp">
+            <ul>
+                <li>
+                    <label>Couleur de la police:</label>
+                    <input
+                        type="radio"
+                        name="color"
+                        value="red"
+                        v-model="pColor"
+                    />
+                    <label>Rouge</label>
+                    <input
+                        type="radio"
+                        name="color"
+                        value="blue"
+                        v-model="pColor"
+                    />
+                    <label>Bleu</label>
+                </li>
+                <li>
+                    <label>Afficher/cacher le paragraphe?</label>
+                    <input type="checkbox" v-model="show" />
+                </li>
+            </ul>
+            <p :style="{ color: pColor }" v-show="show">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
+                fugit pariatur dolores, consequuntur quos, quisquam soluta autem
+                impedit placeat atque accusamus recusandae veniam. Pariatur
+                incidunt odio doloremque dicta iure quod.
+            </p>
+        </div>
+        <script>
+            const appli = {
+                data() {
+                    return {
+                        pColor: "red", // Default color
+                        show: true, // Default visibility
+                    };
+                },
+            };
+
+            Vue.createApp(appli).mount("#monapp");
+        </script>
+    </body>
+</html>
