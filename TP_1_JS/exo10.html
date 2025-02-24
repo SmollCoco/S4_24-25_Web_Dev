@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TP 1 - Exo 10</title>
+    </head>
+    <body>
+        <ul id="ul"></ul>
+        <script>
+            const list = document.getElementById("ul");
+            let listHTML = ``;
+            let t = 10;
+            while (t--) {
+                listHTML += `<li>${Math.floor(Math.random() * 100)}</li>`;
+            }
+            list.innerHTML = listHTML;
+        </script>
+    </body>
+</html>

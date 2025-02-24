@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TP 1 - Exos 8 et 9</title>
+    </head>
+    <body>
+        <table id="table" border="1"></table>
+        <script>
+            let rows, cols;
+            rows = prompt("Enter the number of rows");
+            columns = prompt("Enter the number of columns");
+            const newTable = document.getElementById("table");
+            let tableHTML = "";
+            for (let i = 0; i < rows; ++i) {
+                tableHTML += "<tr>";
+                for (let j = 0; j < columns; ++j) {
+                    tableHTML += `<td>Row ${i + 1} Col ${j + 1}</td>`;
+                }
+                tableHTML += "</tr>";
+            }
+            newTable.innerHTML = tableHTML;
+        </script>
+    </body>
+</html>

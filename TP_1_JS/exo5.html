@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TP 1 - Exo 5</title>
+    </head>
+    <body>
+        <script>
+            ht = prompt("Entrez un prix HT");
+            let tva = prompt("Entrer un taux de la TVA (en pourcentage)");
+            if (tva < 0) {
+                alert("Taux de TVA entrée invalide");
+            } else {
+                document.body.innerText = `Prix TTC: ${
+                    ht * (1.0 + tva / 100.0)
+                }`;
+            }
+        </script>
+    </body>
+</html>
