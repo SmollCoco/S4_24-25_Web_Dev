@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: #f5f5f5;
+                padding: 20px;
+            }
+
+            form {
+                max-width: 1200px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #333;
+                font-weight: 500;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            input:focus,
+            select:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            }
+
+            button {
+                padding: 10px 20px;
+                margin-right: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: opacity 0.2s;
+            }
+
+            button[type="submit"] {
+                background-color: #007bff;
+                color: white;
+            }
+
+            button[type="reset"] {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            button:hover {
+                opacity: 0.85;
+            }
+
+            table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+                background-color: white;
+            }
+
+            th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border: 1px solid #dee2e6;
+            }
+
+            th {
+                background-color: #f8f9fa;
+                font-weight: 600;
+            }
+
+            #table tr:hover {
+                background-color: #f8f9fa;
+            }
+        </style>
+        <title>TP 3</title>
+    </head>
+    <body>
+        <form action="">
+            <label for="student_code">Code étudiant: </label>
+            <input type="text" id="student_code" required />
+            <br />
+            <label for="name">Nom étudiant: </label>
+            <input type="text" id="name" required />
+            <br />
+            <label for="surname">Prénom étudiant: </label>
+            <input type="text" id="surname" required />
+            <br />
+            <label for="semester">Semestre: </label>
+            <select name="semester" id="semester" required>
+                <option value="">Sélectionner un semestre</option>
+                <option value="1">Semestre 1</option>
+                <option value="2">Semestre 2</option>
+            </select>
+            <br />
+            <label for="mod_1">Module 1: </label>
+            <input type="text" id="mod_1" required />
+            <br />
+            <label for="mod_2">Module 2: </label>
+            <input type="text" id="mod_2" required />
+            <br />
+            <label for="mod_3">Module 3: </label>
+            <input type="text" id="mod_3" required />
+            <br />
+            <label for="mod_4">Module 4: </label>
+            <input type="text" id="mod_4" required />
+            <br />
+            <label for="mod_5">Module 5: </label>
+            <input type="text" id="mod_5" required />
+            <br />
+            <label for="mod_6">Module 6: </label>
+            <input type="text" id="mod_6" required />
+            <br />
+            <button type="submit">Valider</button>
+            <button type="reset">Annuler</button>
+            <table border="1" id="table">
+                <tr>
+                    <th>Code étudiant</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Semestre</th>
+                    <th>Module 1</th>
+                    <th>Module 2</th>
+                    <th>Module 3</th>
+                    <th>Module 4</th>
+                    <th>Module 5</th>
+                    <th>Module 6</th>
+                    <th>Moyenne</th>
+                    <th>Décision</th>
+                </tr>
+            </table>
+        </form>
+        <script>
+            let db = [];
+
+            document.querySelector('button[type="submit"]').onclick = function (
+                event
+            ) {
+                event.preventDefault();
+
+                const student_code = document.getElementById("student_code");
+                const name = document.getElementById("name");
+                const surname = document.getElementById("surname");
+                const semester = document.getElementById("semester");
+                const mod_1 = document.getElementById("mod_1");
+                const mod_2 = document.getElementById("mod_2");
+                const mod_3 = document.getElementById("mod_3");
+                const mod_4 = document.getElementById("mod_4");
+                const mod_5 = document.getElementById("mod_5");
+                const mod_6 = document.getElementById("mod_6");
+
+                if (
+                    !student_code.value ||
+                    !name.value ||
+                    !surname.value ||
+                    !semester.value ||
+                    !mod_1.value ||
+                    !mod_2.value ||
+                    !mod_3.value ||
+                    !mod_4.value ||
+                    !mod_5.value ||
+                    !mod_6.value
+                ) {
+                    alert("Veuillez remplir tous les champs.");
+                    return;
+                }
+
+                const duplicate = db.find(
+                    (student) => student.student_code === student_code.value
+                );
+                if (duplicate) {
+                    alert("Un étudiant avec ce code existe déjà.");
+                    return;
+                }
+
+                const average = (
+                    (parseFloat(mod_1.value) +
+                        parseFloat(mod_2.value) +
+                        parseFloat(mod_3.value) +
+                        parseFloat(mod_4.value) +
+                        parseFloat(mod_5.value) +
+                        parseFloat(mod_6.value)) /
+                    6
+                ).toFixed(2);
+
+                const decision = average >= 10 ? "Admis" : "Ajourné";
+
+                const student = {
+                    student_code: student_code.value,
+                    name: name.value,
+                    surname: surname.value,
+                    semester: semester.value,
+                    mod_1: mod_1.value,
+                    mod_2: mod_2.value,
+                    mod_3: mod_3.value,
+                    mod_4: mod_4.value,
+                    mod_5: mod_5.value,
+                    mod_6: mod_6.value,
+                    average: average,
+                    decision: decision,
+                };
+
+                db.push(student);
+
+                const table = document.getElementById("table");
+                const row = table.insertRow();
+                row.insertCell(0).innerText = student.student_code;
+                row.insertCell(1).innerText = student.name;
+                row.insertCell(2).innerText = student.surname;
+                row.insertCell(3).innerText = student.semester;
+                row.insertCell(4).innerText = student.mod_1;
+                row.insertCell(5).innerText = student.mod_2;
+                row.insertCell(6).innerText = student.mod_3;
+                row.insertCell(7).innerText = student.mod_4;
+                row.insertCell(8).innerText = student.mod_5;
+                row.insertCell(9).innerText = student.mod_6;
+                row.insertCell(10).innerText = student.average;
+                row.insertCell(11).innerText = student.decision;
+
+                alert("Informations sur l'étudiant ajoutées avec succès.");
+            };
+        </script>
+    </body>
+</html>

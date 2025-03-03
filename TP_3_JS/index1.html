@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: sans-serif;
+            }
+
+            body {
+                background-color: #f4f4f4;
+                padding: 20px;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            form {
+                max-width: 500px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                box-sizing: border-box;
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="password"]:focus,
+            input[type="tel"]:focus,
+            select:focus,
+            textarea:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+            button {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button[type="reset"] {
+                background-color: #6c757d;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            #recap {
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #f8f8f8;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            #recap ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            #recap li {
+                margin-bottom: 5px;
+            }
+        </style>
+        <title>TP 3</title>
+    </head>
+    <body>
+        <h1>Formulaire d'inscription</h1>
+        <form action="">
+            <label for="name">Nom: </label>
+            <input type="text" id="name" />
+            <br />
+            <label for="surname">Prénom: </label>
+            <input type="text" id="surname" />
+            <br />
+            <label for="email">E-mail: </label>
+            <input type="email" id="email" />
+            <br />
+            <label for="password">Mot de passe: </label>
+            <input type="password" id="password" />
+            <br />
+            <label for="confirm_password">Resaisir le mot de passe: </label>
+            <input type="password" id="confirm_password" />
+            <br />
+            <label for="phone">Téléphone: </label>
+            <input type="tel" id="phone" />
+            <br />
+            <label for="language">Langue: </label>
+            <select name="language" id="language">
+                <option value="en">Anglais</option>
+            </select>
+            <br />
+            <label for="comment">Commentaire: </label>
+            <textarea name="comment" id="comment"></textarea>
+            <br />
+            <button type="submit">Valider</button>
+            <button type="reset">Annuler</button>
+            <div id="recap"></div>
+        </form>
+        <script>
+            document.querySelector('button[type="submit"]').onclick = function (
+                event
+            ) {
+                event.preventDefault();
+                const name = document.getElementById("name").value.trim();
+                const surname = document.getElementById("surname").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const password = document
+                    .getElementById("password")
+                    .value.trim();
+                const confirmPassword = document
+                    .getElementById("confirm_password")
+                    .value.trim();
+                const phone = document.getElementById("phone").value.trim();
+                const language = document.getElementById("language").value;
+                const comment = document.getElementById("comment").value.trim();
+                if (
+                    !name ||
+                    !surname ||
+                    !email ||
+                    !password ||
+                    !confirmPassword ||
+                    !phone ||
+                    !language ||
+                    !comment
+                ) {
+                    alert("Tous les champs sont obligatoires.");
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    alert("Les mots de passe ne correspondent pas.");
+                    return;
+                }
+                alert("Formulaire soumis avec succès !");
+                const recap_div = document.getElementById("recap");
+                let recap_div_html = "";
+                recap_div_html += `<ul>`;
+                recap_div_html += `<li>Nom: ${name}</li>`;
+                recap_div_html += `<li>Prénom: ${surname}</li>`;
+                recap_div_html += `<li>E-mail: ${email}</li>`;
+                recap_div_html += `<li>Mot de passe: ${password}</li>`;
+                recap_div_html += `<li>Téléphone: ${phone}</li>`;
+                recap_div_html += `<li>Langue: ${language}</li>`;
+                recap_div_html += `<li>Commentaire: ${comment}</li>`;
+                recap_div_html += `</ul>`;
+                recap_div.innerHTML = recap_div_html;
+            };
+            document.querySelector('button[type="reset"]').onclick =
+                function () {
+                    document.querySelector("form").reset();
+                    alert("Le formulaire a été réinitialisé.");
+                };
+        </script>
+    </body>
+</html>
