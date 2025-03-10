@@ -15,5 +15,6 @@ Ce projet consiste à développer une application e-commerce pour la vente de pi
 ## Installation
 
 1. Clonez ce repository.
-2. Exécutez `npm install` pour installer les dépendances.
-3. Lancez l'application avec `npm run serve`.
+2. Exécutez `npx json-server --watch .\src\assets\pieces-autos.json --port 3000`.
+3. Exécutez `npm install` pour installer les dépendances.
+4. Lancez l'application avec `npm run serve`.
