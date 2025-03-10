@@ -134,12 +134,10 @@
 </template>
 
 <script>
-import partsData from "@/assets/pieces-autos.json";
-
 export default {
     data() {
         return {
-            parts: partsData,
+            parts: [],
             searchText: "",
             selectedCategories: [],
             selectedSort: "asc",
@@ -189,6 +187,12 @@ export default {
                 return require("@/assets/placeholder.jpg");
             }
         },
+    },
+    mounted() {
+        fetch("http://localhost:3000/parts")
+            .then((response) => response.json())
+            .then((data) => (this.parts = data))
+            .catch(console.error);
     },
 };
 </script>
