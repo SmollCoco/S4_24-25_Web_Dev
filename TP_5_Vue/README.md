@@ -2,15 +2,13 @@
 
 ## Description
 
-Ce projet consiste à développer une application de gestion d'offres d'emploi. L'application permet de gérer dynamiquement des données avec Vue.js, d'afficher des offres d'emploi, d'effectuer des recherches, de filtrer et trier les éléments, et de postuler aux offres sélectionnées.
+Ce projet consiste à développer une application de gestion d'offres d'emploi. L'application permet de gérer dynamiquement des données avec Vue.js, d'afficher des offres d'emploi, d'effectuer des recherches, et de filtrer et trier les éléments.
 
 ## Fonctionnalités
 
 - **Affichage dynamique** des offres d'emploi avec Vue.js.
 - **Barre de recherche** pour filtrer les offres en temps réel.
-- **Filtrage interactif** par type de contrat (CDI, CDD, freelance) ou localisation.
-- **Tri** des offres par date de publication ou salaire proposé.
-- **Postulation aux offres** avec possibilité de suivre les candidatures.
+- **Filtrage interactif** par ans d'expérience.
 
 ## Installation
 
