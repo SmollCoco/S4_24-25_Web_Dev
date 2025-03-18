@@ -13,6 +13,7 @@ Ce dépôt contient les projets et exercices réalisés dans le cadre du cours d
 - **TP_2_JS**
 - **TP_3_Vue**
 - **TP_4_Vue**
+- **TP_5_Vue**
 
 ## Installation
 
